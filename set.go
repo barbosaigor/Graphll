@@ -2,6 +2,7 @@ package graphll
 
 import "strings"
 
+// set implements a set data structure
 type set map[string]struct{}
 
 func newSet(values []string) set {
@@ -21,14 +22,14 @@ func (s set) add(key string) {
 }
 
 func (s set) union(b set) {
-	for key, _ := range b {
+	for key := range b {
 		s.add(key)
 	}
 }
 
 func (s set) toSlice() []string {
 	var elements []string
-	for key, _ := range s {
+	for key := range s {
 		elements = append(elements, key)
 	}
 	return elements
