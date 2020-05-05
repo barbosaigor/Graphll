@@ -24,8 +24,20 @@ func compareStringSlices(a, b []string) bool {
 
 func TestAdd(t *testing.T) {
 	g := populateGraphLL()
+	if len(g) != 6 {
+		t.Errorf("Add is not attaching the correct number of nodes, expected %d but got %d", 6, len(g))
+	}
 	if g.String() == "" {
-		t.Error("Add elements to graph not working")
+		t.Error("Add String is not returning a valid string")
+	}
+}
+
+func TestRemove(t *testing.T) {
+	g := populateGraphLL()
+	g.Remove("a")
+	g.Remove("f")
+	if len(g) != 4 {
+		t.Errorf("Add is not attaching the correct number of nodes, expected %d but got %d", 4, len(g))
 	}
 }
 

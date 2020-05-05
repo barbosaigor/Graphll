@@ -25,19 +25,28 @@ func New() GraphLL {
 	return make(GraphLL)
 }
 
-// Add attaches a node to the graph
+// Add attaches a node to the graph.
+// It won't check if dependencies (deps) are already into the graph
 func (g GraphLL) Add(name string, weight uint32, deps []string) {
 	if deps == nil {
 		deps = []string{}
 	}
-	if _, ok := g[name]; !ok {
-		g[name] = Node{weight, newSet(deps)}
-	} else {
-		g[name].Deps.union(newSet(deps))
+	s := newSet(deps)
+	// If the node is already into the graph, then union it's dependencies with
+	// the new dependencies
+	if _, ok := g[name]; ok {
+		s.union(g[name].Deps)
 	}
+	g[name] = Node{weight, s}
+}
+
+// Remove deattaches the node from the graph.
+func (g GraphLL) Remove(name string) {
+	delete(g, name)
 }
 
 // Deps gets the dependencies of a node
+// It don't check if there is a dangling dependency
 func (g GraphLL) Deps(name string) ([]string, error) {
 	if _, ok := g[name]; !ok {
 		return nil, ErrElementNotFound

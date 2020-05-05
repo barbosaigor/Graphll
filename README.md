@@ -1,7 +1,7 @@
 # Graph LL
 
 Graphll is a simple but efficient _weighted dependency graph_ data structure, having O(1) complexity for read and write operations. 
-Easy to use, concise and simple, optimized for graph readings and writes. 
+A lightweight package, easy to use, concise and simple, optimized for graph readings and writes. 
 
 ## Documentation
 
@@ -26,6 +26,14 @@ g.Add("c", 10, []string{"d", "e"})
 g.Add("d", 5, nil)
 g.Add("e", 7, nil)
 g.Add("f", 15, []string{"a"})
+```
+
+**Remove** deattaches the node from the graph  
+```golang
+g := graphll.New()  
+g.Add("a", 80, []string{"b", "c"})  
+g.Add("b", 90, []string{"d"})  
+g.Remove("a") // g now has only "b" node  
 ```
 
 **Weight** gets the weight of a node  
